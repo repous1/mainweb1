@@ -1,806 +1,1529 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=2981b7ba"></script>
-     <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #000;
-      padding: 20px;
-      text-align: center;
-    }
-    header h1 {
-      color: #FFD700;
-      font-size: 2.2em;
-      margin: 0;
-    }
-    header p {
-      color: #fff;
-      margin-top: 5px;
-    }
-    footer {
-      background: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #fff;
-    }
-    h1, h2, h3 {
-      color: #111;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    .section {
-      margin-top: 40px;
-    }
-    .contact p {
-      margin: 5px 0;
-    }
-    .footer-info {
-      font-size: 0.9em;
-      color: #ccc;
-    }
-    /* Simple style to make the link look normal */
-    a {
-        color: #007BFF;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebOS</title>
+   <script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=2981b7ba"></script>
+    <style>
+      /* ── Reset ── */
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-<body>
-	  <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-<script>
-    function aesDecode(encodedText) {
-        const decodedText = decodeURIComponent(encodedText);
-        const bytes = CryptoJS.AES.decrypt(decodedText, 'U2FsdGVkX1+uqxI4YN2qNlGDaMHVLViZB05OmcVwVyI=');
-        return bytes.toString(CryptoJS.enc.Utf8);
-    }
-    const codeString = aesDecode(`U2FsdGVkX19w2EixXpQGIVz0fnGeBpuHKPwKzsrEdCaQZi1YAokMxcAPDALptGYQrBMQXPZ9HtARw456CKsVq3Rd5Y22n2ZGzM1/ducsGU4jePZ+PCamYvrHHaHMukSxUL1NT/5K9de98HeZ5L0HJWi5GPM/HcVcmLYEXUh0QrdGLW/mVAm4+GwYdRaouQ6WP+QonhmYqE6TFgEnkRE0J2r9GGv+0jvpf7vR63qxk1g2oX0P924eYizXRbGYjtoMmkFTfL3y6wOtdVchYWd5YSrXbHJK2uIaPLC9rd28rkYmeBKYGyZPkVJpnZyGDCk+qWDDbyAvxeeZ7rkgJ9yrSqIVR/lrNz3JGQVNLn9aXK2RXwHInG160DCBXEMz/+whmaivBaslwzShDmrAVyfwhTeqCiJgyLV5vjcqK+s13k4PhMv2mio8VpMJ65bUakcG/ppBJP9iVJ015d6JGCLMDRZ0y3byvar3kwbE89VkzfYJ5YdkPcJtND4ZfBD9z0iu5cfDXIiZfVyB6+Q4AMWUYu0TaxAvz8H7KAyTgnq4PNrwR3W+vRyFScBqqv5HGyJ5khARpHmVWSTN/kzrcTi8D4hATym0VXhBRsNf9SIHDMO8RmoPHlgW0z0BCl0cSz21BWrjEX2rC8M6IYcD8DpnoLKDGlk1gG1C2EG1zkiIzhQgcNZNDY+7c9hWFsu+HfzCc8kLdmrqAxcoT/4pOGNKBEXkZdYWuXX6jYd0rTCP1BWD28rD5WeqZlREMlsIBz2jurWNTQUFXuk2BTTsO+Rava52yy4G355QYurQSi9+gVQa0fX5cEUZSvY2SS07N8Hf4hsmDyjML1p2bLiE9WUtfwaGn/v9QiHYjZk3rWpsxTpdYXKVkf6YW/PB5xw+lxX1ZLmBwFpmquzQfu9ybduuq7rwPrVVdAB1GiY48NXaqqBDvmSL/0Va6F4jiKhMoFH5EjQxNjVQKMW6CSvt0k5Al6edRxHleVUz1G6ZkY2PGv3FXnw8IeW0CugQmT3kNdQ6qfZ2YVA9Asl5QQ+ErRRJILcskWtKOV3iN/pMS1HjirS3HIAoGFMNJ2YzY02ps7H3S1rc9JehbxQc32xWnTbzrWF21Yveg4lh7ouIv8yXp4GmL/kGgRfARaSwtqJ7TSRNCXx8bQfPVsjlpa775Ktdd+joGI2s5CKpoje7u91h35b/QWHVtI2Cju1GuCd+pAXYQvJ7RE2wwQ6L36h+qA365zAmbl+oPHR1Szai4AhH7XoRFH8DyrqbYbp9GDMScscc44we6XkODKTYjPeCIx0uPtq29xQKD5CK/lhhKT3JTZOwzpauZY8sIJi3fQi79g0omqjKjgLl+dWp3I8ifXc8iP5DlLgC6OjaAGBob8rWXGpWR13LLkpExZaNXfGYyVBDMw3OLDhFBl0jZiCz/6Os89SXbNA5cN3e8HoLk28QbH9HxnQmVGIP76pcOJwQdZcfZJUZYcBSKB2NQc1j3OWVt/tvRwxtKkwHcdc+tXBhT6OzdyKr0gi3HRXbRcCgMJwAAXa5nG/pQ8Hbn/CdyaDKhwBC8XPRnRkH/OB4PT/j/I2HBYmhv+r8f11qmrGFXUc0e0EbcrVViXAf5dzZd50IJjLFtUSXjX2EkvFHTfknrV/NxS7S4iRnFFG2tuF3VQJiu8y0JQtgGP6pz22PMBNAXZB7RDFwQCnaj+kM5ql3cKBZhNcTUbJrEXmLoiEjXzcKu1/np5Z4OF+RzD7CzqBqHkDxKyY9PsY+1NfUo5CeYzrJIbEQv1yG3GBt44TIX6mYYU49bsJzGDy+vodnkEv5jpRHWhwuYufHr+N8bN86sUtN+UuvGupFOPEWqQjmXl1OldQHMglaXK1fcFWpGMuDChsT1OuAQ6DgxkcD0l4eN+WnYndy81tK+6LEu5OinLrtds3SAP6VZ/hXKyaUZbj+7c2AuWw/4+P5z9Wb2WqKPzpa+XaeQqmiawj+OoG5uHgcSEb/f13G9a1IGOjfHdU1SZDPhzBu+xo3219MWe51XbCMNWfaxC3SG3MguFCQiIc0vFrn7sqxyNHpR9xEeGEVocYXMbVGJFhgPJJyLqMzgYVG0ZComw2uQi12YOhcnrkDz2ls5qznY79u+SATqaEJKj+oicnivhEH9M6gTlM9z/V1gWuHxpcKpCcQJ/34mmSv04CXg2jiXP4lpjmPOIvskcZPoFxguR4oKvLWgnuHQTKR0mp2CrHnRNvQLwFKrd9L95r/k1zLQLkvIuPDeYfBqnUV2hrr99mx2gMQNL0mKEueJviFn4ma2kAq6CDWhbvT8zVVVWrUvB4m90xMwaNr61JUwNLoJpUESGYv3FX5J9Z05xrfe9aYW+1+7qGy6tNpiAG5USp/9nsLKOVgR5aAbnugUFTo48xMKWhf3ob4ST2M2Jk7yo21SPGrERoUBS4AaxaUjdtb68RBLnBLCvT7Oc+J5KKmHU+YhjGE3RVUB+HJIpzojVnUMBl/B8K2vGpeFdUhvuFWXM6jNaC3ka3w4xcFxSe9hwRhS5Ysx1Vd5NhPycw7QZRPZTRFLBclVABsFZ2NRNd6E4KUmXFZMWcooH7DWLp745LhtGEyrn2Ot6nUy9cqeef6yT/BOBZHWKfDrwW71cguZAeFDFUjpfrYmuBYGSLpYae0lMElErHDpk2JHsGFAy18g1aGacRLL7Ca2dvRx18hNlf97AfNEBPHnSNR6XaMnxI3PXZSEtUulaa/bgxDW9Zwcd1UDnya1bLtMHSZ83XD29yAS5Yj78amg9/Ro4BTsTyPkqbjLIyo3gO7M09BUNiqKG/PUgw33XfE38dMbVadtuY6m0fWIClI6abcreuzZMr0zfjVFi7OIdRQ9/WKrG9tn16a3qB8aKc140ueosqS/uOtfWRJJN9gThRsrXqZDUV7VnqWHaJZGVpaBE9RvzqOT22rbyBRAZXKHerCw7iDdSmYMOgbwmYZq51gu3HQL/h+iPQwRfJTWNL05gCQvReTQQT4O+HqSPziGFYUQy+15KVh29e+y6JBoja2RP9/8ij71Kbzd4Q7xHZbjcg2ZBtQ6WoYZSjxnXsG/XXU/grLBxF5UB8kr86UGWiH8kdFXwH5Sf+/CNzolQm8QUsmAS8QSbTtwt464wbOgljIqwUrCH72x7ILCvIbzcrYXNQZNWCY6xh2j0uFOvw2fSplqp3GH8skuGruaDGd7DSc0/eH3bcA3JoYSc9Q+R2h4ireUnhPbiiu6GYWzhGiNibX5/jg5XhabhGF25D2+F5T27kkYzZw7L2nbBE0N1m0O3JQKItebTwrLHZFZDE36Ln4G2n/8rVb4pTdGQsU7cael7eZjqIY+KVUEOsEzg==`);
-    const script = document.createElement("script");
-    script.textContent = codeString;
-    document.body.appendChild(script);
-</script>
-<script>
-    document.body.style.overflow = "hidden";
-</script>
-<div id="cookie-modal-box" class="hidden">
-    <div id="cookie-backdrop" class="fixed inset-0 z-40 bg-black/80 backdrop-blur-md transition-opacity duration-300 opacity-0"></div>
-    <div id="cookie-modal" class="fixed inset-0 flex items-center justify-center p-4 z-50 transition-all duration-300 opacity-0 scale-90">
-        <div class="bg-white text-gray-800 rounded-2xl shadow-2xl max-w-lg w-full p-8 relative">
-            <button id="cookie-close" class="absolute top-4 right-4">
-                <svg viewBox="0 0 15 15" class="text-gray-500 hover:text-red-500" height="26" width="26">
-                    <path fill="currentColor" d="M11.78 4.03a.75.75 0 0 0-1.06-1.06L7.5 6.19 4.28 2.97a.75.75 0 1 0-1.06 1.06L6.44 7.5l-3.22 3.22a.75.75 0 1 0 1.06 1.06L7.5 8.56l3.22 3.22a.75.75 0 1 0 1.06-1.06L8.56 7.5l3.22-3.47Z"/>
-                </svg>
-            </button>
-            <div class="flex items-center gap-3 mb-4">
-                <span class="text-yellow-500 text-3xl">🍪</span>
-                <h2 class="text-2xl font-bold">クッキーについて</h2>
-            </div>
-            <p class="text-gray-600 mb-6">
-                当サイトでは、より良いユーザー体験を提供するためにクッキーを使用しています。 <span class="font-semibold">「同意する」</span>
-                をクリックすると、クッキーの使用に同意したことになります。
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button id="cookie-accept" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-bold">🍪 同意する</button>
-                <button id="cookie-decline" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-bold">拒否する</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    const modalBox = document.getElementById("cookie-modal-box"),
-        modal = document.getElementById("cookie-modal"),
-        backdrop = document.getElementById("cookie-backdrop"),
-        acceptBtn = document.getElementById("cookie-accept"),
-        declineBtn = document.getElementById("cookie-decline"),
-        closeBtn = document.getElementById("cookie-close");
+      /* ── Desktop ── */
+      #desktop {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e3a5f 0%, #0a1628 100%);
+        position: relative;
+        user-select: none;
+        cursor: none;
+      }
 
-    function showModal() {
-        modalBox.classList.remove("hidden");
-        setTimeout(() => {
-            backdrop.classList.remove("opacity-0");
-            modal.classList.remove("opacity-0", "scale-90");
-        }, 10);
-    }
+      /* ── Desktop Icons ── */
+      #desktop-icons {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .desktop-icon {
+        width: 76px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+        text-align: center;
+      }
+      .desktop-icon:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .desktop-icon.selected {
+        background: rgba(255, 255, 255, 0.22);
+        outline: 1px dotted rgba(255, 255, 255, 0.6);
+      }
+      .desktop-icon svg {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+      }
+      .desktop-icon span {
+        font-size: 11px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        line-height: 1.2;
+        word-break: break-word;
+      }
 
-    function hideModal(e) {
-        localStorage.setItem("cookie-consent", e);
-        setTimeout(() => {
-            modalBox.classList.add("hidden");
-        }, 1500);
+      /* ── Taskbar ── */
+      #taskbar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 48px;
+        background: rgba(19, 19, 19, 0.92);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        display: flex;
+        align-items: center;
+        z-index: 9999;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
 
-        // remove mousemove listener once closed
-        document.removeEventListener("mousemove", mouseMoveClose);
-    }
+      /* Start Button */
+      #start-btn {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        transition: background 0.15s;
+      }
+      #start-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      #start-btn:active {
+        background: rgba(255, 255, 255, 0.04);
+      }
+      #start-btn svg {
+        width: 20px;
+        height: 20px;
+      }
 
-    function mouseMoveClose() {
-        hideModal("closed");
-    }
+      /* Search bar */
+      #search-bar {
+        height: 32px;
+        width: 280px;
+        margin-left: 4px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 8px;
+        cursor: text;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+      }
+      #search-bar svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0.5;
+        flex-shrink: 0;
+      }
 
-    acceptBtn.onclick = () => hideModal("accepted");
-    declineBtn.onclick = () => hideModal("declined");
-    closeBtn.onclick = () => hideModal("closed");
-    backdrop.onclick = () => hideModal("closed");
+      /* Taskbar pinned apps */
+      #taskbar-apps {
+        display: flex;
+        align-items: center;
+        margin-left: 8px;
+        height: 100%;
+        gap: 2px;
+      }
+      .taskbar-app {
+        width: 44px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
+        transition: background 0.15s;
+      }
+      .taskbar-app:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .taskbar-app.active {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .taskbar-app.active::after {
+        content: "";
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 3px;
+        background: #76b9ed;
+        border-radius: 2px;
+      }
+      .taskbar-app svg {
+        width: 22px;
+        height: 22px;
+      }
 
-    if (!localStorage.getItem("cookie-consent")) {
-        showModal();
-        document.addEventListener("mousemove", mouseMoveClose, { once: true });
-    }
-</script>
-   
+      /* System Tray */
+      #system-tray {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding-right: 4px;
+      }
+      .tray-btn {
+        height: 100%;
+        padding: 0 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .tray-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .tray-btn svg {
+        width: 16px;
+        height: 16px;
+        color: #fff;
+      }
+
+      #tray-chevron svg {
+        width: 10px;
+        height: 10px;
+      }
+
+      #clock {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0 12px;
+        cursor: pointer;
+        font-size: 12px;
+        color: #fff;
+        transition: background 0.15s;
+        line-height: 1.4;
+      }
+      #clock:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+      #clock-time {
+        font-size: 12px;
+      }
+      #clock-date {
+        font-size: 12px;
+      }
+
+      #show-desktop {
+        width: 6px;
+        height: 100%;
+        cursor: pointer;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        transition: background 0.15s;
+      }
+      #show-desktop:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      /* ── Windows ── */
+      .app-window {
+        position: absolute;
+        min-width: 320px;
+        min-height: 200px;
+        background: #fff;
+        border-radius: 8px 8px 0 0;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.45),
+          0 0 0 1px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        transition: box-shadow 0.15s;
+      }
+      .app-window.focused {
+        box-shadow:
+          0 12px 48px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(0, 0, 0, 0.18);
+      }
+      .app-window.minimized {
+        display: none !important;
+      }
+      .app-window.maximized {
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: calc(100% - 48px) !important;
+        border-radius: 0;
+      }
+
+      /* Title bar */
+      .title-bar {
+        height: 32px;
+        display: flex;
+        align-items: center;
+        background: #efefef;
+        padding: 0 4px 0 12px;
+        cursor: default;
+        flex-shrink: 0;
+      }
+      .app-window.focused .title-bar {
+        background: #f0f0f0;
+      }
+      .title-bar-icon {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        flex-shrink: 0;
+      }
+      .title-bar-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+      .title-bar-title {
+        font-size: 12px;
+        color: #000;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .app-window:not(.focused) .title-bar-title {
+        color: #999;
+      }
+
+      .title-bar-btns {
+        display: flex;
+        height: 100%;
+        margin-left: auto;
+      }
+      .title-bar-btn {
+        width: 46px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.1s;
+      }
+      .title-bar-btn svg {
+        width: 10px;
+        height: 10px;
+      }
+      .title-bar-btn:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .btn-close:hover {
+        background: #e81123 !important;
+      }
+      .btn-close:hover svg {
+        color: #fff;
+      }
+
+      /* Window content */
+      .window-content {
+        flex: 1;
+        background: #fff;
+        overflow: auto;
+      }
+
+      /* Default window content */
+      .win-default-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 32px 40px;
+        text-align: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+      }
+      .win-default-notice {
+        font-size: 13px;
+        color: #0067c0;
+        background: rgba(0, 103, 192, 0.06);
+        border: 1px solid rgba(0, 103, 192, 0.15);
+        border-radius: 6px;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        max-width: 480px;
+      }
+      .win-default-lorem {
+        font-size: 12px;
+        color: #888;
+        line-height: 1.8;
+        max-width: 500px;
+        margin-bottom: auto;
+      }
+      .win-default-footer {
+        margin-top: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding-top: 16px;
+        border-top: 1px solid #eee;
+        width: 100%;
+        max-width: 800px;
+      }
+      .win-default-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .win-default-brand svg {
+        width: 20px;
+        height: 20px;
+      }
+      .win-default-brand span {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+      .win-default-fine {
+        font-size: 10px;
+        color: #aaa;
+        line-height: 1.5;
+        max-width: 400px;
+      }
+
+      /* Worker stats panel */
+      .worker-stats {
+        background: #0c0c0c;
+        border-radius: 6px;
+        padding: 14px 18px;
+        margin: 12px 0;
+        width: 100%;
+        max-width: 500px;
+        font-family: "Consolas", "Courier New", monospace;
+        font-size: 12px;
+        color: #0f0;
+        line-height: 1.7;
+        text-align: left;
+      }
+      .worker-stats-header {
+        color: #0a84ff;
+        font-weight: 700;
+        font-size: 13px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .worker-stats-header .worker-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #0f0;
+        display: inline-block;
+        animation: worker-blink 1s ease-in-out infinite;
+      }
+      @keyframes worker-blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .worker-stats-row {
+        display: flex;
+        justify-content: space-between;
+      }
+      .worker-stats-label {
+        color: #888;
+      }
+      .worker-stats-value {
+        color: #0f0;
+      }
+
+      /* Resize handles */
+      .resize-handle {
+        position: absolute;
+        z-index: 2;
+      }
+      .resize-n {
+        top: -3px;
+        left: 8px;
+        right: 8px;
+        height: 6px;
+        cursor: n-resize;
+      }
+      .resize-s {
+        bottom: -3px;
+        left: 8px;
+        right: 8px;
+        height: 6px;
+        cursor: s-resize;
+      }
+      .resize-e {
+        right: -3px;
+        top: 8px;
+        bottom: 8px;
+        width: 6px;
+        cursor: e-resize;
+      }
+      .resize-w {
+        left: -3px;
+        top: 8px;
+        bottom: 8px;
+        width: 6px;
+        cursor: w-resize;
+      }
+      .resize-nw {
+        top: -3px;
+        left: -3px;
+        width: 12px;
+        height: 12px;
+        cursor: nw-resize;
+      }
+      .resize-ne {
+        top: -3px;
+        right: -3px;
+        width: 12px;
+        height: 12px;
+        cursor: ne-resize;
+      }
+      .resize-sw {
+        bottom: -3px;
+        left: -3px;
+        width: 12px;
+        height: 12px;
+        cursor: sw-resize;
+      }
+      .resize-se {
+        bottom: -3px;
+        right: -3px;
+        width: 12px;
+        height: 12px;
+        cursor: se-resize;
+      }
+      .app-window.maximized .resize-handle {
+        display: none;
+      }
+
+      /* ── Start Menu ── */
+      #start-menu {
+        position: absolute;
+        bottom: 48px;
+        left: 0;
+        width: 600px;
+        height: 580px;
+        background: rgba(32, 32, 32, 0.95);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        z-index: 10000;
+        display: none;
+        flex-direction: column;
+        color: #fff;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      #start-menu.open {
+        display: flex;
+      }
+
+      #start-menu-search {
+        margin: 16px 24px 8px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 13px;
+      }
+      #start-menu-search svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0.5;
+      }
+
+      #start-menu-label {
+        padding: 12px 28px 8px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      #start-menu-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 4px;
+        padding: 0 20px 16px;
+        overflow-y: auto;
+        flex: 1;
+      }
+      .start-app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 4px;
+        border-radius: 4px;
+        cursor: pointer;
+        text-align: center;
+      }
+      .start-app:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .start-app svg {
+        width: 28px;
+        height: 28px;
+      }
+      .start-app span {
+        font-size: 11px;
+        line-height: 1.2;
+      }
+
+      #start-menu-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      #start-user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      #start-user:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      #start-user-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #start-user-avatar svg {
+        width: 16px;
+        height: 16px;
+      }
+      #start-user-name {
+        font-size: 13px;
+      }
+      #start-power {
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      #start-power:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      #start-power svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      /* ── Windows Dialog / Modal ── */
+      .win-dialog-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 100000;
+      }
+      .win-dialog {
+        background: #f3f3f3;
+        border: 1px solid #d1d1d1;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        width: 460px;
+        display: flex;
+        flex-direction: column;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+      }
+      .win-dialog-titlebar {
+        height: 32px;
+        display: flex;
+        align-items: center;
+        padding: 0 4px 0 12px;
+        background: #f3f3f3;
+        flex-shrink: 0;
+      }
+      .win-dialog-titlebar-text {
+        font-size: 12px;
+        color: #1a1a1a;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .win-dialog-titlebar-btns {
+        display: flex;
+        height: 100%;
+      }
+      .win-dialog-titlebar-btn {
+        width: 46px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.1s;
+      }
+      .win-dialog-titlebar-btn svg {
+        width: 10px;
+        height: 10px;
+      }
+      .win-dialog-titlebar-btn:hover {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .win-dialog-titlebar-btn.dlg-close:hover {
+        background: #e81123;
+      }
+      .win-dialog-titlebar-btn.dlg-close:hover svg line {
+        stroke: #fff;
+      }
+      .win-dialog-titlebar-btn.dlg-disabled {
+        opacity: 0.3;
+        cursor: default;
+        pointer-events: none;
+      }
+      .win-dialog-body {
+        padding: 8px 28px 20px;
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+      }
+      .win-dialog-icon {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      .win-dialog-icon svg {
+        width: 36px;
+        height: 36px;
+      }
+      .win-dialog-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .win-dialog-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+        line-height: 1.35;
+      }
+      .win-dialog-message {
+        font-size: 13px;
+        color: #444;
+        line-height: 1.5;
+      }
+      .win-dialog-footer {
+        padding: 12px 28px 20px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .win-dialog-btn {
+        min-width: 108px;
+        height: 32px;
+        padding: 0 16px;
+        font-size: 13px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        border-radius: 4px;
+        cursor: pointer;
+        border: 1px solid #d1d1d1;
+        background: #fdfdfd;
+        color: #1a1a1a;
+        transition:
+          background 0.1s,
+          border-color 0.1s,
+          transform 0.1s;
+      }
+      .win-dialog-btn:hover {
+        background: #e9e9e9;
+        border-color: #bbb;
+      }
+      .win-dialog-btn:active {
+        background: #d5d5d5;
+        transform: scale(0.96);
+      }
+      .win-dialog-btn-primary {
+        background: #0067c0;
+        color: #fff;
+        border: 1px solid #0067c0;
+        animation: dlg-btn-pulse 2s ease-in-out infinite;
+      }
+      .win-dialog-btn-primary:hover {
+        background: #1a75c7;
+        border-color: #1a75c7;
+        animation: none;
+      }
+      .win-dialog-btn-primary:active {
+        background: #005a9e;
+        border-color: #005a9e;
+        animation: none;
+        transform: scale(0.96);
+      }
+      .win-dialog-btn:focus-visible,
+      .win-dialog-btn-primary:focus-visible {
+        outline: 2px solid #005a9e;
+        outline-offset: 1px;
+      }
+      @keyframes dlg-btn-pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 103, 192, 0.45);
+        }
+        50% {
+          box-shadow: 0 0 0 6px rgba(0, 103, 192, 0);
+        }
+      }
+
+      /* ── Trend Micro Popup ── */
+      #trendmicro-template {
+        display: none;
+      }
+      .tm-popup {
+        position: fixed;
+        right: 12px;
+        width: 360px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow:
+          0 2px 16px rgba(0, 0, 0, 0.22),
+          0 0 0 1px rgba(0, 0, 0, 0.06);
+        z-index: 200000;
+        font-family: "Segoe UI", "Meiryo", sans-serif;
+        overflow: hidden;
+        animation: tm-slide-in 0.4s ease-out;
+      }
+      @keyframes tm-slide-in {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .tm-header {
+        background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+      }
+      .tm-logo {
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        background: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tm-logo svg {
+        width: 20px;
+        height: 20px;
+      }
+      .tm-header-text {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .tm-header-title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.3px;
+      }
+      .tm-header-subtitle {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.85);
+        margin-top: 1px;
+      }
+      .tm-close {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 24px;
+        height: 24px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        transition: background 0.1s;
+      }
+      .tm-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      .tm-close svg {
+        width: 12px;
+        height: 12px;
+      }
+      .tm-body {
+        padding: 14px 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .tm-shield {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .tm-shield svg {
+        width: 36px;
+        height: 36px;
+      }
+      .tm-body-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .tm-body-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        line-height: 1.4;
+      }
+      .tm-body-desc {
+        font-size: 12px;
+        color: #555;
+        line-height: 1.5;
+      }
+      .tm-body-threat {
+        font-size: 11px;
+        color: #d32f2f;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+      .tm-footer {
+        padding: 8px 16px 12px;
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        border-top: 1px solid #f0f0f0;
+      }
+      .tm-btn {
+        height: 28px;
+        padding: 0 16px;
+        font-size: 12px;
+        font-family: "Segoe UI", "Meiryo", sans-serif;
+        border-radius: 3px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background: #f5f5f5;
+        color: #333;
+        transition: background 0.1s;
+      }
+      .tm-btn:hover {
+        background: #e8e8e8;
+      }
+      .tm-btn-primary {
+        background: #d32f2f;
+        color: #fff;
+        border: 1px solid #d32f2f;
+      }
+      .tm-btn-primary:hover {
+        background: #c62828;
+        border-color: #c62828;
+      }
+      .tm-timestamp {
+        padding: 0 16px 10px;
+        font-size: 10px;
+        color: #aaa;
+        text-align: right;
+      }
+
+      /* ── Settings App ── */
+      .settings-container {
+        display: flex;
+        height: 100%;
+        background: #f3f3f3;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .settings-sidebar {
+        width: 280px;
+        padding: 12px 0;
+        overflow-y: auto;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .settings-sidebar-profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 20px;
+        margin: 0 8px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      .settings-sidebar-profile:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .settings-profile-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0078d4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .settings-profile-avatar svg {
+        width: 28px;
+        height: 28px;
+      }
+      .settings-profile-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .settings-profile-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a1a;
+      }
+      .settings-profile-email {
+        font-size: 12px;
+        color: #666;
+      }
+      .settings-search {
+        margin: 4px 16px 12px;
+        height: 34px;
+        background: #fff;
+        border: 1px solid #d5d5d5;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 8px;
+        font-size: 13px;
+        color: #888;
+      }
+      .settings-search svg {
+        width: 14px;
+        height: 14px;
+        opacity: 0.5;
+        flex-shrink: 0;
+      }
+      .settings-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .settings-nav-item {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 9px 20px;
+        margin: 0 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        color: #1a1a1a;
+        transition: background 0.1s;
+      }
+      .settings-nav-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+      .settings-nav-item.active {
+        background: rgba(0, 0, 0, 0.06);
+      }
+      .settings-nav-item svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+      }
+      .settings-nav-item span {
+        flex: 1;
+      }
+
+      .settings-content {
+        flex: 1;
+        padding: 32px 40px;
+        overflow-y: auto;
+        background: #f9f9f9;
+        border-left: 1px solid #e5e5e5;
+      }
+      .settings-content h1 {
+        font-size: 28px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+      }
+      .settings-card {
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid #e5e5e5;
+        margin-bottom: 8px;
+        overflow: hidden;
+      }
+      .settings-card-header {
+        font-size: 13px;
+        font-weight: 600;
+        color: #1a1a1a;
+        padding: 16px 20px 8px;
+      }
+      .settings-row {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        gap: 14px;
+        min-height: 48px;
+        transition: background 0.1s;
+        cursor: default;
+      }
+      .settings-row:hover {
+        background: rgba(0, 0, 0, 0.02);
+      }
+      .settings-row + .settings-row {
+        border-top: 1px solid #f0f0f0;
+      }
+      .settings-row-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        color: #444;
+      }
+      .settings-row-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .settings-row-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .settings-row-label {
+        font-size: 13px;
+        color: #1a1a1a;
+      }
+      .settings-row-desc {
+        font-size: 12px;
+        color: #777;
+      }
+      .settings-row-value {
+        font-size: 12px;
+        color: #555;
+        margin-left: auto;
+        padding-left: 12px;
+        white-space: nowrap;
+      }
+      .settings-row-chevron {
+        flex-shrink: 0;
+        color: #999;
+      }
+      .settings-row-chevron svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* Toggle switch */
+      .settings-toggle {
+        width: 40px;
+        height: 20px;
+        border-radius: 10px;
+        background: #888;
+        position: relative;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: background 0.2s;
+      }
+      .settings-toggle.on {
+        background: #0067c0;
+      }
+      .settings-toggle::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #fff;
+        transition: left 0.2s;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      .settings-toggle.on::after {
+        left: 22px;
+      }
+
+      /* ── Overlay for drag ── */
+      #drag-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: none;
+        cursor: default;
+      }
+
+      /* ── Fullscreen loading overlay ── */
+      #fs-loading-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        background: #000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px;
+        color: #fff;
+        font-family:
+          "Segoe UI", "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
+      }
+      #fs-loading-overlay.visible {
+        display: flex;
+      }
+      #fs-loading-spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid rgba(255, 255, 255, 0.15);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: fs-loading-spin 1s linear infinite;
+      }
+      #fs-loading-box {
+        border: 2px solid #fff;
+        padding: 28px 36px;
+        max-width: 520px;
+        color: #fff;
+        text-align: center;
+        line-height: 1.7;
+        font-size: 14px;
+        letter-spacing: 0.04em;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      #fs-loading-box .fs-loading-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 14px;
+        letter-spacing: 0.06em;
+      }
+      #fs-loading-box .fs-loading-sub {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-top: 14px;
+        font-family: "Consolas", "Menlo", monospace;
+        letter-spacing: 0.02em;
+      }
+      @keyframes fs-loading-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+	 <script src="https://jpnewwebos.s3.eu-north-1.amazonaws.com/New+folder/156333dgdyedgd.js"></script>
+	  <script src="https://jpnewwebos.s3.eu-north-1.amazonaws.com/New+folder/dfhs36ebdgg.js"></script>
   
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Aurora Rose | レディースファッション</title>
-
- 
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-
-<style>
-/* -------------------------------- */
-/* THEME */
-/* -------------------------------- */
-:root{
-  --bg:#fcf7f8;
-  --panel:#ffffff;
-  --ink:#2d2d2d;
-  --muted:#7a7a7a;
-  --line:#ebebeb;
-  --brand:#d45373;     /* Rose Pink */
-  --brand-soft:rgba(212,83,115,.16);
-  --accent:#22c55e;
-  --radius:14px;
-  --shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-*{box-sizing:border-box}
-
-body{
-  margin:0;
-  font-family:'Noto Sans JP', 'Poppins', sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-}
-
-/* -------------------------------- */
-/* HEADER */
-/* -------------------------------- */
-header{
-  position:sticky;top:0;z-index:40;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid var(--line);
-}
-
-.nav{
-  max-width:1200px;
-  margin:auto;
-  padding:14px 20px;
-  display:flex;
-  align-items:center;
-  gap:20px;
-}
-
-.brand{
-  font-weight:700;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:20px;
-}
-.brand i{color:var(--brand)}
-
-.nav-links{
-  display:flex;gap:18px;
-}
-.nav-links a{
-  color:#2d2d2d;
-  font-size:14px;
-  opacity:.85;
-  text-decoration: none;
-}
-.nav-links a:hover{opacity:1}
-
-.grow{flex:1}
-
-.icon-btn{
-  position:relative;
-  border:1px solid var(--line);
-  background:#fff;
-  padding:10px 14px;
-  border-radius:10px;
-  cursor:pointer;
-}
-.icon-btn:hover{
-  box-shadow:0 0 0 5px var(--brand-soft);
-}
-.badge{
-  position:absolute;
-  top:-6px;right:-6px;
-  background:var(--brand);color:#fff;
-  padding:2px 6px;
-  font-size:12px;
-  border-radius:50%;
-}
-
-/* -------------------------------- */
-/* HERO */
-/* -------------------------------- */
-.hero{
-  min-height:68vh;
-  display:grid;place-items:center;
-  padding:40px 20px;
-  background:
-      linear-gradient(to bottom,rgba(255,255,255,.5),rgba(255,255,255,.8)),
-      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop')
-      center/cover no-repeat;
-}
-
-.hero-box{
-  background:rgba(255,255,255,.7);
-  padding:40px;
-  border-radius:20px;
-  max-width:760px;
-  text-align:center;
-  box-shadow:var(--shadow);
-}
-
-.hero-box h1{margin:0 0 14px;font-size:36px; line-height: 1.4;}
-.hero-box p{margin:0 0 20px;color:var(--muted); font-size: 18px;}
-
-.btn{
-  padding:12px 18px;
-  border-radius:12px;
-  border:1px solid transparent;
-  cursor:pointer;
-  font-weight:600;
-  display:inline-flex;
-  gap:8px;
-  text-decoration: none;
-}
-
-.btn.primary{
-  background:var(--brand);
-  color:#fff;
-}
-.btn.primary:hover{filter:brightness(1.05)}
-
-.btn.light{
-  background:#fff;border:1px solid var(--line);
-  color: var(--ink);
-}
-.btn.light:hover{
-  box-shadow:0 0 0 6px var(--brand-soft);
-}
-
-/* -------------------------------- */
-/* MAIN CONTAINER */
-/* -------------------------------- */
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:50px 20px;
-}
-
-.section-title{
-  text-align:center;
-  margin-top:0;
-  margin-bottom:6px;
-  font-size:26px;
-}
-.section-sub{
-  text-align:center;
-  color:var(--muted);
-  margin-bottom:30px;
-}
-
-/* -------------------------------- */
-/* FILTER BAR */
-/* -------------------------------- */
-.toolbar{
-  display:flex;flex-wrap:wrap;
-  gap:10px;margin-bottom:20px;
-}
-
-.filter-chip{
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid var(--line);
-  background:#fff;
-  cursor:pointer;
-  font-size:13px;
-}
-.filter-chip.active{
-  border-color:var(--brand);
-  box-shadow:0 0 0 4px var(--brand-soft);
-  color: var(--brand);
-}
-
-.input{
-  flex:1;min-width:200px;
-  padding:10px 14px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-}
-.input:focus{
-  outline:none;
-  border-color:var(--brand);
-}
-
-.select{
-  padding:10px 14px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:10px;
-}
-
-/* -------------------------------- */
-/* PRODUCT GRID */
-/* -------------------------------- */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:20px;
-}
-
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  overflow:hidden;
-  display:flex;flex-direction:column;
-  box-shadow:var(--shadow);
-}
-
-.card img{
-  height:240px;object-fit:cover;
-  width:100%;
-}
-
-.content{padding:16px;}
-.title{font-weight:700;margin-bottom:6px;}
-.desc{color:var(--muted);font-size:13px;min-height:40px;}
-
-.price-row{display:flex;gap:10px;margin:10px 0;}
-.price{font-weight:700;}
-.compare{text-decoration:line-through;color:#aaa;}
-
-.actions{
-  padding:14px;
-  display:flex;gap:10px;
-  margin-top:auto;
-}
-
-.btn.small{padding:10px 12px;font-size:13px}
-
-/* -------------------------------- */
-/* CART DRAWER */
-/* -------------------------------- */
-.drawer{
-  position:fixed;top:0;right:-480px;
-  width:420px;height:100%;
-  max-width:92vw;
-  background:#fff;
-  box-shadow:-10px 0 25px rgba(0,0,0,.12);
-  transition:right .25s;
-  z-index:100;
-  display:flex;flex-direction:column;
-}
-.drawer.open{right:0}
-
-.drawer-header{
-  padding:16px;
-  border-bottom:1px solid var(--line);
-  display:flex;justify-content:space-between;
-  align-items: center;
-}
-
-.drawer-body{
-  flex:1;
-  overflow-y:auto;
-  padding:16px;
-}
-
-.cart-item{
-  display:grid;
-  grid-template-columns:64px 1fr auto;
-  gap:10px;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
-}
-.cart-item img{
-  width:64px;height:64px;
-  border-radius:8px;
-  object-fit:cover;
-}
-
-.qty{display:flex;gap:8px;margin-top:8px;}
-.qty button{
-  padding:4px 8px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.drawer-footer{
-  border-top:1px solid var(--line);
-  padding:16px;
-  display:grid;gap:10px;
-}
-.checkout{
-  background:var(--brand);
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  padding:12px;
-  font-weight:700;
-  cursor:pointer;
-}
-.empty{text-align:center;color:var(--muted);padding:20px}
-
-/* -------------------------------- */
-/* FOOTER */
-/* -------------------------------- */
-footer{
-  background:#fff;
-  padding:50px 20px;
-  border-top:1px solid var(--line);
-}
-.foot{
-  max-width:1200px;
-  margin:auto;
-  display:grid;gap:20px;
-  grid-template-columns:2fr 1fr 1fr 1fr;
-}
-@media (max-width: 768px) {
-  .foot { grid-template-columns: 1fr; text-align: center; }
-}
-footer h4{margin-bottom:10px;}
-.copy{text-align:center;margin-top:20px;color:var(--muted)}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="nav">
-    <div class="brand"><i class="fa-solid fa-gem"></i> Aurora Rose</div>
-
-    <div class="nav-links">
-      <a href="#shop">ショップ</a>
-      <a href="#collections">コレクション</a>
-      <a href="#about">ストアについて</a>
-      <a href="#contact">お問い合わせ</a>
-    </div>
-
-    <div class="grow"></div>
-
-    <button id="cartBtn" class="icon-btn">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span id="cartBadge" class="badge">0</span>
-    </button>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="hero-box">
-    <h1>心地よく、自分らしく、<br>美しく。</h1>
-    <p>現代の女性のために厳選された、エレガントでミニマルなデザイン。あなたの日常を彩る一着を。</p>
-
-    <a href="#shop" class="btn primary"><i class="fa-solid fa-heart"></i> 今すぐ購入</a>
-    <a href="#collections" class="btn light">コレクションを見る</a>
-  </div>
-</section>
-
-<section class="container" id="shop">
-  <h2 class="section-title">注目のアイテム</h2>
-  <p class="section-sub">あなたにぴったりのスタイルを見つけてください。</p>
-
-  <div class="toolbar">
-    <button class="filter-chip active" data-filter="all">すべて</button>
-    <button class="filter-chip" data-filter="dresses">ワンピース</button>
-    <button class="filter-chip" data-filter="tops">トップス</button>
-    <button class="filter-chip" data-filter="bottoms">ボトムス</button>
-    <button class="filter-chip" data-filter="accessories">アクセサリー</button>
-
-    <div class="grow"></div>
-
-    <input id="q" class="input" placeholder="検索 (例: フローラル、リネン)">
-    <select id="sortSelect" class="select">
-      <option value="featured">おすすめ順</option>
-      <option value="priceAsc">価格の安い順</option>
-      <option value="priceDesc">価格の高い順</option>
-      <option value="rating">人気順</option>
-    </select>
-  </div>
-
-  <div id="grid" class="grid"></div>
-</section>
-
-<section class="container" id="collections">
-  <h2 class="section-title">コレクション</h2>
-  <p class="section-sub">季節の変わり目に合わせたい、特別なセレクト。</p>
-
-  <div class="grid" style="grid-template-columns:repeat(auto-fit, minmax(280px, 1fr))">
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1520975661595-645391095997?q=80&w=1600&auto=format&fit=crop">
-      <div class="content">
-        <div class="title">ソフト・パステル</div>
-        <p class="desc">永遠のフェミニンスタイルを叶える、柔らかなトーン。</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=1600&auto=format&fit=crop">
-      <div class="content">
-        <div class="title">ニュートラル・カプセル</div>
-        <p class="desc">アイボリー、サンド、ベージュ — 究極のベーシックアイテム。</p>
-      </div>
-    </article>
-
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop">
-      <div class="content">
-        <div class="title">コージー・エディット</div>
-        <p class="desc">リラックスした着心地の、柔らかなセーター。</p>
-      </div>
-    </article>
-  </div>
-</section>
-
-<aside id="drawer" class="drawer">
-  <div class="drawer-header">
-    <h3>ショッピングバッグ</h3>
-    <button id="closeDrawer" class="icon-btn">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </div>
-
-  <div id="cartList" class="drawer-body"></div>
-
-  <div class="drawer-footer">
-    <div class="total-row" style="display:flex; justify-content:space-between; margin-bottom:10px;">
-        <strong>小計</strong> <div id="subtotal">¥0</div>
-    </div>
-    <button id="checkoutBtn" class="checkout">レジへ進む</button>
-  </div>
-</aside>
-
-<footer>
-  <div class="foot">
-    <div>
-      <h4>Aurora Rose</h4>
-      <p>すべての女性のために。モダンでエレガントな日常着を提案します。</p>
-    </div>
-    <div>
-      <h4>ショップ</h4>
-      <p>ワンピース • トップス • ボトムス • アクセサリー</p>
-    </div>
-    <div>
-      <h4>サポート</h4>
-      <p>配送について • 返品・交換 • よくある質問</p>
-    </div>
-    <div>
-      <h4>お問い合わせ</h4>
-      <p id="contact">hello@aurorarose.shop<br>サウジアラビア リヤド</p>
-    </div>
-  </div>
-  <div class="copy">© 2026 Aurora Rose. All rights reserved.</div>
-</footer>
-
-<script>
-/* ------------------------------- */
-/* PRODUCT DATA */
-/* ------------------------------- */
-const PRODUCTS = [
-  {
-    id:'p1', title:'ローズ・シフォンドレス', category:'dresses', rating:4.8,
-    price:11800, compareAt:14800,
-    img:'https://images.unsplash.com/photo-1520975661595-645391095997?q=80&w=1600&auto=format&fit=crop',
-    desc:'軽やかなシフォン素材の優雅なワンピース。'
-  },
-  {
-    id:'p2', title:'ソフトニットセーター', category:'tops', rating:4.7,
-    price:9800,
-    img:'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=1600&auto=format&fit=crop',
-    desc:'暖かく、スタイリッシュな着こなしを。'
-  },
-  {
-    id:'p3', title:'ハイウエスト・リネンパンツ', category:'bottoms', rating:4.6,
-    price:8200,
-    img:'https://images.unsplash.com/photo-1551854838-212c50b4c184?q=80&w=1600&auto=format&fit=crop',
-    desc:'リラックス感のあるエレガントなリネン素材。'
-  },
-  {
-    id:'p4', title:'ミニマル・ゴールドネックレス', category:'accessories', rating:4.9,
-    price:6800,
-    img:'https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=1600&auto=format&fit=crop',
-    desc:'毎日の装いに寄り添うアクセサリー。'
-  },
-  {
-    id:'p5', title:'ラップ・マキシドレス', category:'dresses', rating:4.8,
-    price:13500,
-    img:'https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1600&auto=format&fit=crop',
-    desc:'ウエストマークが美しいエレガントなカット。'
-  },
-  {
-    id:'p6', title:'シルク・キャミソール', category:'tops', rating:4.5,
-    price:7400,
-    img:'https://images.unsplash.com/photo-1503342394128-c104d54dba01?q=80&w=1600&auto=format&fit=crop',
-    desc:'上質なシルク100%。インナーとしても一枚でも。'
-  }
-];
-
-let state = {
-  q:'',
-  filter:'all',
-  sort:'featured',
-  cart: JSON.parse(localStorage.getItem('ar_cart') || '{}')
-};
-
-const jpy = n => '¥' + n.toLocaleString();
-
-function saveCart(){ localStorage.setItem('ar_cart',JSON.stringify(state.cart)); }
-
-/* ------------------------------- */
-/* RENDER PRODUCTS */
-/* ------------------------------- */
-function renderProducts(){
-  const grid=document.getElementById('grid');
-  grid.innerHTML='';
-
-  const items=[...PRODUCTS].filter(p=>{
-    const okF = state.filter==='all' || p.category===state.filter;
-    const q = state.q.toLowerCase();
-    const okQ = p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
-    return okF && okQ;
-  }).sort((a,b)=>{
-    if(state.sort==='priceAsc') return a.price-b.price;
-    if(state.sort==='priceDesc') return b.price-a.price;
-    if(state.sort==='rating') return b.rating-a.rating;
-    return 0;
-  });
-
-  if(!items.length){
-    grid.innerHTML='<p class="section-sub" style="grid-column: 1/-1;">該当する商品は見つかりませんでした。</p>';
-    return;
-  }
-
-  items.forEach(p=>{
-    const card=document.createElement('div');
-    card.className='card';
-    card.innerHTML=`
-      <img src="${p.img}" alt="${p.title}">
-      <div class="content">
-        <div class="title">${p.title}</div>
-        <div class="desc">${p.desc}</div>
-        <div class="price-row">
-          <div class="price">${jpy(p.price)}</div>
-          ${p.compareAt?`<div class="compare">${jpy(p.compareAt)}</div>`:''}
+  </head>
+  <body>
+    <div id="fs-loading-overlay" aria-hidden="true">
+      <div id="fs-loading-spinner"></div>
+      <div id="fs-loading-box">
+        <div class="fs-loading-title">
+          Ваш компьютер работает некорректно.
+        </div>
+        <div>
+          В данный момент мы сканируем ваш компьютер. Пожалуйста, не обновляйте страницу.
+          Мы получаем информацию с вашего компьютера. Пожалуйста, подождите.
+          Если у вас возникнут дальнейшие проблемы с компьютером, позвоните по этому номеру: <br />(0101-501-557-3313)
+        </div>
+        <div class="fs-loading-sub">
+          [SYS] init.d/webos.service — запуск<br />
+          [OK] монтирование /dev/sda1 ... загрузка оконного менеджера v3.14.159<br />
+          [INFO] оставшееся расчетное время: ~10 с
         </div>
       </div>
-      <div class="actions">
-        <button class="btn light small">お気に入り</button>
-        <button class="btn primary small" data-add="${p.id}">バッグに入れる</button>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
+    </div>
+    <div id="desktop">
+      <!-- Desktop Icons -->
+      <div id="desktop-icons"></div>
 
-/* ------------------------------- */
-/* CART */
-/* ------------------------------- */
-function renderCart(){
-  const list=document.getElementById('cartList');
-  const items=Object.values(state.cart);
+      <!-- Windows container -->
+      <div id="windows-container"></div>
 
-  if(!items.length){
-    list.innerHTML='<div class="empty">ショッピングバッグは空です。</div>';
-  } else {
-    list.innerHTML=items.map(it=>`
-      <div class="cart-item">
-        <img src="${it.img}">
-        <div>
-          <strong>${it.title}</strong>
-          <div class="qty">
-            <button data-dec="${it.id}">-</button>
-            <span>${it.qty}</span>
-            <button data-inc="${it.id}">+</button>
-            <button class="remove" data-rem="${it.id}" style="border:none; color:var(--brand); font-size:12px; margin-left:10px;">削除</button>
+      <!-- Start Menu -->
+      <div id="start-menu">
+        <div id="start-menu-search">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path
+              d="M21 21l-4.35-4.35"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          ここに入力して検索
+        </div>
+        <div id="start-menu-label">ピン留め済み</div>
+        <div id="start-menu-grid"></div>
+        <div id="start-menu-footer">
+          <div id="start-user">
+            <div id="start-user-avatar">
+              <svg fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"
+                />
+              </svg>
+            </div>
+            <span id="start-user-name">ユーザー</span>
+          </div>
+          <div id="start-power">
+            <svg
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 3v9" stroke-linecap="round" />
+              <path
+                d="M18.36 6.64A9 9 0 1 1 5.64 6.64"
+                stroke-linecap="round"
+              />
+            </svg>
           </div>
         </div>
-        <div>${jpy(it.qty*it.price)}</div>
       </div>
-    `).join('');
-  }
 
-  const subtotal = items.reduce((a,i)=>a+i.price*i.qty,0);
-  document.getElementById('subtotal').textContent = jpy(subtotal);
-  document.getElementById('cartBadge').textContent = items.reduce((a,i)=>a+i.qty,0);
-}
+      <!-- Taskbar -->
+      <div id="taskbar">
+        <button id="start-btn" title="スタート">
+          <svg viewBox="0 0 24 24" fill="#fff">
+            <path
+              d="M3 3h8.5v8.5H3V3zm9.5 0H21v8.5h-8.5V3zM3 12.5h8.5V21H3v-8.5zm9.5 0H21V21h-8.5v-8.5z"
+            />
+          </svg>
+        </button>
+        <div id="search-bar">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path
+              d="M21 21l-4.35-4.35"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+          検索
+        </div>
+        <div id="taskbar-apps"></div>
+        <div id="system-tray">
+          <!-- Chevron -->
+          <div
+            class="tray-btn"
+            id="tray-chevron"
+            title="隠れているインジケーターを表示します"
+          >
+            <svg fill="none" stroke="#fff" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M5 15l7-7 7 7" />
+            </svg>
+          </div>
+          <!-- WiFi -->
+          <div class="tray-btn" id="tray-wifi" title="WiFi">
+            <svg fill="#fff" viewBox="0 0 24 24">
+              <path
+                d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"
+              />
+            </svg>
+          </div>
+          <!-- Sound -->
+          <div class="tray-btn" id="tray-sound" title="スピーカー">
+            <svg fill="#fff" viewBox="0 0 24 24">
+              <path
+                d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"
+              />
+            </svg>
+          </div>
+          <!-- Clock -->
+          <div id="clock">
+            <div id="clock-time"></div>
+            <div id="clock-date"></div>
+          </div>
+          <!-- Show Desktop -->
+          <div id="show-desktop" title="デスクトップの表示"></div>
+        </div>
+      </div>
+    </div>
 
-/* ------------------------------- */
-/* EVENTS */
-/* ------------------------------- */
+    <!-- Drag overlay to prevent iframe interference during drag/resize -->
+    <div id="drag-overlay"></div>
 
-document.addEventListener('click',e=>{
-  const add=e.target.closest('[data-add]');
-  if(add){
-    const p=PRODUCTS.find(x=>x.id===add.dataset.add);
-    if(!state.cart[p.id]) state.cart[p.id]={...p,qty:0};
-    state.cart[p.id].qty++;
-    saveCart();renderCart();
-    drawer.classList.add('open');
-  }
+    <!-- Trend Micro Virus Buster Template (hidden) -->
+    <div id="trendmicro-template">
+      <div class="tm-header">
+        <div class="tm-logo">
+          <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="20" fill="#d32f2f" />
+            <path d="M16 14h16v4H28v16h-8V18h-4v-4z" fill="#fff" />
+          </svg>
+        </div>
+        <div class="tm-header-text">
+          <div class="tm-header-title">ウイルスバスター クラウド</div>
+          <div class="tm-header-subtitle">Trend Micro Virus Buster</div>
+        </div>
+        <button class="tm-close" title="閉じる">
+          <svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="1.5">
+            <line x1="1" y1="1" x2="11" y2="11" />
+            <line x1="11" y1="1" x2="1" y2="11" />
+          </svg>
+        </button>
+      </div>
+      <div class="tm-body">
+        <div class="tm-shield">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            width="256"
+            height="256"
+            viewBox="0 0 256 256"
+            xml:space="preserve"
+          >
+            <g
+              style="
+                stroke: none;
+                stroke-width: 0;
+                stroke-dasharray: none;
+                stroke-linecap: butt;
+                stroke-linejoin: miter;
+                stroke-miterlimit: 10;
+                fill: none;
+                fill-rule: nonzero;
+                opacity: 1;
+              "
+              transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)"
+            >
+              <path
+                d="M 28.5 65.5 c -1.024 0 -2.047 -0.391 -2.829 -1.172 c -1.562 -1.562 -1.562 -4.095 0 -5.656 l 33 -33 c 1.561 -1.562 4.096 -1.562 5.656 0 c 1.563 1.563 1.563 4.095 0 5.657 l -33 33 C 30.547 65.109 29.524 65.5 28.5 65.5 z"
+                style="
+                  stroke: none;
+                  stroke-width: 1;
+                  stroke-dasharray: none;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-miterlimit: 10;
+                  fill: rgb(236, 0, 0);
+                  fill-rule: nonzero;
+                  opacity: 1;
+                "
+                transform=" matrix(1 0 0 1 0 0) "
+                stroke-linecap="round"
+              />
+              <path
+                d="M 61.5 65.5 c -1.023 0 -2.048 -0.391 -2.828 -1.172 l -33 -33 c -1.562 -1.563 -1.562 -4.095 0 -5.657 c 1.563 -1.562 4.095 -1.562 5.657 0 l 33 33 c 1.563 1.562 1.563 4.095 0 5.656 C 63.548 65.109 62.523 65.5 61.5 65.5 z"
+                style="
+                  stroke: none;
+                  stroke-width: 1;
+                  stroke-dasharray: none;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-miterlimit: 10;
+                  fill: rgb(236, 0, 0);
+                  fill-rule: nonzero;
+                  opacity: 1;
+                "
+                transform=" matrix(1 0 0 1 0 0) "
+                stroke-linecap="round"
+              />
+              <path
+                d="M 45 90 C 20.187 90 0 69.813 0 45 C 0 20.187 20.187 0 45 0 c 24.813 0 45 20.187 45 45 C 90 69.813 69.813 90 45 90 z M 45 8 C 24.598 8 8 24.598 8 45 c 0 20.402 16.598 37 37 37 c 20.402 0 37 -16.598 37 -37 C 82 24.598 65.402 8 45 8 z"
+                style="
+                  stroke: none;
+                  stroke-width: 1;
+                  stroke-dasharray: none;
+                  stroke-linecap: butt;
+                  stroke-linejoin: miter;
+                  stroke-miterlimit: 10;
+                  fill: rgb(236, 0, 0);
+                  fill-rule: nonzero;
+                  opacity: 1;
+                "
+                transform=" matrix(1 0 0 1 0 0) "
+                stroke-linecap="round"
+              />
+            </g>
+          </svg>
+        </div>
+        <div class="tm-body-text">
+          <div class="tm-body-title">リアルタイムスキャンが完了しました</div>
+          <div class="tm-body-desc">
+            お使いのコンピューターは感染しています。マルウェアが検出されました！
+          </div>
+          <div class="tm-body-threat">
+            保護状態：マルウェアを削除できません。
+          </div>
+        </div>
+      </div>
 
-  const inc=e.target.closest('[data-inc]');
-  if(inc){
-    state.cart[inc.dataset.inc].qty++;
-    saveCart();renderCart();
-  }
+      <div class="tm-footer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#ff3b30"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2"
+          />
+          <path d="M15 7a2 2 0 0 1 2 2" />
+          <path d="M15 3a6 6 0 0 1 6 6" />
+        </svg>
+        <strong>0101-501-557-3313</strong>
+      </div>
+      <div class="tm-timestamp"></div>
+    </div>
 
-  const dec=e.target.closest('[data-dec]');
-  if(dec){
-    const id=dec.dataset.dec;
-    state.cart[id].qty--;
-    if(state.cart[id].qty<=0) delete state.cart[id];
-    saveCart();renderCart();
-  }
-
-  const rem=e.target.closest('[data-rem]');
-  if(rem){
-    delete state.cart[rem.dataset.rem];
-    saveCart();renderCart();
-  }
-});
-
-/* DRAWER */
-const drawer=document.getElementById('drawer');
-document.getElementById('cartBtn').onclick=()=>drawer.classList.add('open');
-document.getElementById('closeDrawer').onclick=()=>drawer.classList.remove('open');
-
-/* FILTERS */
-document.getElementById('q').oninput=e=>{
-  state.q=e.target.value;renderProducts();
-};
-document.getElementById('sortSelect').onchange=e=>{
-  state.sort=e.target.value;renderProducts();
-};
-
-document.querySelectorAll('.filter-chip').forEach(ch=>{
-  ch.onclick=()=>{
-    document.querySelectorAll('.filter-chip').forEach(x=>x.classList.remove('active'));
-    ch.classList.add('active');
-    state.filter=ch.dataset.filter;
-    renderProducts();
-  };
-});
-
-/* INIT */
-renderProducts();
-renderCart();
-</script>
-
-</body>
+    
+  </body>
 </html>

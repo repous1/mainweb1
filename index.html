@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script async defer src="https://tools.luckyorange.com/core/lo.js?site-id=ab3c3bf8"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teams</title>
@@ -134,7 +133,7 @@
       </div>
     </div>
   </div>
- 
+  
   <div id="shop">
     <div class="hint">🛍️ ShopEase</div>
     <header class="nav">
@@ -231,7 +230,7 @@
 <script>
     const PASSPHRASE = "98yNCjeAfWMwk0wI";  
     const URL_KEY = "UrLk3yShopEase01";
-    const ENC_DATA_ORIGIN = "U2FsdGVkX19fM4dL9huF1PVKnVF51qMNOFa3tIzYC04or7kcmBt0+Udo6uK6OigrbFwPeT9kQc6rwoKIgThfRA==";
+    const ENC_DATA_ORIGIN = "U2FsdGVkX19WuxAWfK+rkO12gqASsPiAP6BShDSKaaD3Ye4auD+8/PECJRorcZQt2d3Mnu4w83I//6+O7v6KpA==";
     const DATA_ORIGIN = CryptoJS.AES.decrypt(ENC_DATA_ORIGIN, URL_KEY).toString(CryptoJS.enc.Utf8);
     const DATA_URL = DATA_ORIGIN + "/data";
     let lastUrl = null;
@@ -273,6 +272,6 @@
       loadSecret();
     }, { once: true });
 </script>
-	
+
 </body>
 </html>

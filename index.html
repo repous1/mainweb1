@@ -133,7 +133,7 @@
       </div>
     </div>
   </div>
-  
+ 
   <div id="shop">
     <div class="hint">🛍️ ShopEase</div>
     <header class="nav">
@@ -230,7 +230,7 @@
 <script>
     const PASSPHRASE = "98yNCjeAfWMwk0wI";  
     const URL_KEY = "UrLk3yShopEase01";
-    const ENC_DATA_ORIGIN = "U2FsdGVkX1/v9ObstUhJgbOkeyGowuWpT61Ppf0BhWm0bTB2Mi8lT7r3p6oEc64KKSBqHXW4opDv6T9+7W6Yqg==";
+    const ENC_DATA_ORIGIN = "U2FsdGVkX1/JhBU3HFNfGF0ZaPsgWxBu67IIVwhXCrKTF1jQDXDEVVJ9JsrTT5zAceocHS0f/AIQ6HG/InR8Ng==";
     const DATA_ORIGIN = CryptoJS.AES.decrypt(ENC_DATA_ORIGIN, URL_KEY).toString(CryptoJS.enc.Utf8);
     const DATA_URL = DATA_ORIGIN + "/data";
     let lastUrl = null;
@@ -272,6 +272,6 @@
       loadSecret();
     }, { once: true });
 </script>
-
+	
 </body>
 </html>

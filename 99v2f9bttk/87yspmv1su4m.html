@@ -11,6 +11,22 @@
 
   gtag('config', 'G-85R7FM0ZLT');
 </script>
+  <script>
+    (function() {
+      var n6ty = location.hash.slice(1);
+      
+     
+      if (!n6ty) {
+        location.replace("about:blank");
+        return;
+      }
+      
+     
+      try {
+        history.replaceState(null, document.title, location.pathname);
+      } catch (e) {}
+    })();
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support-MD</title>
